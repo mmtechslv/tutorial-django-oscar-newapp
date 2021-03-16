@@ -1,0 +1,36 @@
+{% extends "oscar/layout.html" %}
+
+{% load i18n %}
+{% load product_tags %}
+
+{% block title %}
+{% trans "Boutiques" %} | {{ block.super }}
+{% endblock %}
+
+{% block breadcrumbs %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ homepage_url }}">{% trans "Home" %}</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">{% trans "Boutiques" %}</li>
+        </ol>
+    </nav>
+{% endblock %}
+
+{% block headertext %}
+    {% trans "Boutique" %}
+{% endblock %}
+
+{% block content %}
+    {% if not boutique_list %}
+        <p>{% trans "There are no boutique at the moment." %}</p>
+    {% else %}
+        {% for boutique in boutique_list %}
+        <p>
+          <h2><a href="{% url 'boutique:details' boutique.pk %}">{{ boutique.name }}</a></h2>
+          The boutique is in: {{ boutique.city }}
+        </p> <hr/>
+        {% endfor %}
+    {% endif %}
+{% endblock content %}
