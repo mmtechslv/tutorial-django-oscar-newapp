@@ -72,7 +72,9 @@ INSTALLED_APPS = [
     'oscar.apps.dashboard.communications.apps.CommunicationsDashboardConfig',
     'oscar.apps.dashboard.shipping.apps.ShippingDashboardConfig',
 
+
     'boutique.apps.BoutiqueConfig',
+    'boutique.dashboard.apps.DashboardConfig',
 
     # 3rd-party apps that oscar depends on
     'widget_tweaks',
@@ -190,3 +192,10 @@ HAYSTACK_CONNECTIONS = {
 }
 
 from oscar.defaults import *
+
+from django.utils.translation import gettext_lazy as _
+OSCAR_DASHBOARD_NAVIGATION.append({
+    'label': _('Boutiques'),
+    'icon': 'fas fa-store',
+    'url_name': 'boutique-dashboard:boutique-list',
+})

@@ -1,0 +1,33 @@
+{% extends 'oscar/dashboard/layout.html' %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'dashboard:index' %}">{% trans "Dashboard" %}</a></li>
+    <li class="breadcrumb-item"><a href="{% url 'boutique-dashboard:boutique-list' %}">{% trans "Boutiques" %}</a></li>
+    <li class="breadcrumb-item">{{ object.name }}</li>
+    <li class="breadcrumb-item active" aria-current="page">{% trans "Delete?" %}</li>
+  </ol>
+</nav>
+{% endblock %}
+
+{% block headertext %}
+{% trans "Delete boutique?" %}
+{% endblock %}
+
+{% block dashboard_content %}
+<div class="card card-body bg-light">
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-actions">
+      {% blocktrans with boutique_name=object.name %}
+      <p>Delete boutique <strong>{{ boutique_name }}</strong> - are you sure?</p>
+      {% endblocktrans %}
+      <button type="submit" class="btn btn-lg btn-danger">{% trans "Delete" %}</button>
+      {% trans "or" %}
+      <a href="{% url 'boutique-dashboard:boutique-list' %}">{% trans "cancel" %}</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
